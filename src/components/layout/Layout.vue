@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <Header v-if="isUser"/>
-    <slot></slot>
+    <main>
+      <slot></slot>
+    </main>
     <Footer v-if="isUser"/>
   </div>
 </template>
@@ -23,7 +25,6 @@ export default {
     getAuthUser() {
       let user = firebase.auth().currentUser
       if (user) {
-        console.log(user)
         this.isUser = true
       } else {
         this.isUser = false

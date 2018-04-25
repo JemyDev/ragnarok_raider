@@ -9,13 +9,17 @@
             <form>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" type="email" placeholder="Email" v-model="email">
+                  <input class="input is-large" type="email" placeholder="Email" v-model="email" />
                 </div>
               </div>
-
               <div class="field">
                 <div class="control">
                   <input class="input is-large" type="password" placeholder="Mot de passe" v-model="password">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input class="input is-large" type="text" placeholder="Nom d'utilisateur" v-model="username">
                 </div>
               </div>
               <button class="button is-block is-primary is-large is-fullwidth" @click="register">S'inscrire</button>
@@ -38,6 +42,7 @@ export default {
     return {
       email: '',
       password: '',
+      username: '',
       errMessage: ''
     }
   },
@@ -48,6 +53,9 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
+            user.updateProfile({
+              displayName: this.username
+            })
             this.$router.go({ path: '/login' })
           },
           err => {

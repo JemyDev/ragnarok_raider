@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Home from '@/components/Home'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import MvpTracker from '@/components/MvpTracker'
 
 Vue.use(Router)
 
@@ -12,7 +13,7 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home,
       meta: {
         requiresAuth: true
@@ -33,6 +34,14 @@ let router = new Router({
       meta: {
         requiresGuest: true
       }
+    },
+    {
+      path: '/mvp-tracker',
+      name: 'mvp-tracker',
+      component: MvpTracker,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
@@ -41,10 +50,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!firebase.auth().currentUser) {
       next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
+        path: '/login'
       })
     } else {
       next()
@@ -52,10 +58,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.requiresGuest)) {
     if (firebase.auth().currentUser) {
       next({
-        path: '/',
-        query: {
-          redirect: to.fullPath
-        }
+        path: '/'
       })
     } else {
       next()

@@ -5,7 +5,9 @@
         <a class="navbar-item" href="/">Ragnarok Raider</a>
       </div>
       <div class="navbar-end">
-        <button class="button is-primary is-inverted" @click="logout">Déconnexion</button>
+        <div class="navbar-item">
+          <button class="button is-primary is-inverted" @click="logout">Déconnexion</button>
+        </div>
       </div>
     </nav>
   </header>
